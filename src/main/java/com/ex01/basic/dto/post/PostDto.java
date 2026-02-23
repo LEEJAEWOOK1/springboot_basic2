@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 public class PostDto {
-    private int number;
     private String title;
     private String content;
 }

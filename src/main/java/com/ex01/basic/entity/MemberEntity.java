@@ -24,14 +24,14 @@ public class MemberEntity {
     @Column(nullable = false)
     private String role;
     private String fileName;
+//mappedBy = "내가 연결하고자 하는 자식에 있는 변수 이름"
+    @OneToMany(mappedBy = "memberEntity", orphanRemoval = true,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostEntity> posts = new ArrayList<>();
 
     @PrePersist
     public void prePersist(){
         if(this.role == null)
             this.role ="USER";
     }
-
-    @OneToMany(mappedBy = "memberEntity", cascade = CascadeType.ALL, orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private List<PostEntity> posts = new ArrayList<>();
 }

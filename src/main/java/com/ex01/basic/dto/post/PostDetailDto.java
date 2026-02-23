@@ -16,10 +16,12 @@ public class PostDetailDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updateTime;
-    private String memberUserName;
+    private int memberUserId;
+    private String memberUsername;
 
     public PostDetailDto(PostEntity postEntity){
         BeanUtils.copyProperties(postEntity, this);
-        this.memberUserName = postEntity.getMemberEntity().getUsername();
+        this.memberUsername = postEntity.getMemberEntity().getUsername();
+        this.memberUserId = postEntity.getMemberEntity().getId();
     }
 }

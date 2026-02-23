@@ -12,7 +12,7 @@ import java.util.Date;
 public class JwtUtil {
     @Value("${jwt.secretKey")
     private String secretKey;
-    private final long expirationMs = 2000 * 60;
+    private final long expirationMs = 5000 * 60;
     public String generateToken(String username, String role){
         System.out.println("jwt secretKey : " + secretKey);
         Claims claims = Jwts.claims();
