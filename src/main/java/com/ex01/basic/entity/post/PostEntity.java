@@ -8,12 +8,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="basic_post")
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//포스트 테이블 설정
 public class PostEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +31,15 @@ public class PostEntity {
     @Column(updatable = false)
     private LocalDateTime createdAt;
     private LocalDateTime updateTime;
+    //외래키 설정(PostCountEntity와 postEntity(PostCountEntity에 있는 변수) 연결)
+    @OneToMany(mappedBy = "postEntity", orphanRemoval = true,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostCountEntity> postCounts = new ArrayList<>();
+    //외래키 설정(PostLikeEntity와 postEntity(PostLikeEntity에 있는 변수) 연결)
+    @OneToMany(mappedBy = "postEntity", orphanRemoval = true,
+            cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostLikeEntity> postLikes = new ArrayList<>();
+
     @PrePersist
     public void onCreate(){
         this.createdAt = LocalDateTime.now();

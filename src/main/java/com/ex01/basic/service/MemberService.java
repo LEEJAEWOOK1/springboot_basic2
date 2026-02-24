@@ -129,6 +129,10 @@ public class MemberService {
         if(!memberEntity.getUsername().equals(username))
             throw new MemberAccessDeniedException("삭제 권한이 없습니다");
         memberEntity.getPosts().clear();
+        memberEntity.getPostCounts().forEach(
+                postCount -> postCount.setMemberEntity(null)
+        );
+        memberEntity.getPostLikes().clear();
         memRepository.deleteById(id);
 
     }
